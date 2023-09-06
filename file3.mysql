@@ -1,0 +1,15 @@
+create database vaish;
+use vaish;
+create table abc(
+Emp_id int not null auto_increment,
+Emp_name varchar(50) not null,
+Emp_sal int not null,
+primary key(Emp_id)
+);
+insert into abc(Emp_id,Emp_name,Emp_sal)values(1,'ram','1200'),(2,'gokul','13000'),(3,'sam','11000'),(4,'karthi','12500'),(5,'subha','13000');
+select*from abc;
+update abc set Emp_sal=Emp_sal+1000 where Emp_sal<13000;
+set sql_safe_updates=0;
+alter table abc add Emp_ann int after Emp_sal;
+update abc set Emp_ann =Emp_sal*12;
+ 
