@@ -1,0 +1,97 @@
+create database student;
+drop database student;
+create database vaishnav;
+use vaishnav;
+create table users(
+id int not null auto_increment,
+name varchar(50) not null,
+age int not null,
+primary key(id)
+
+);
+show tables;
+describe users; 
+alter table users add gender varchar(10) not null after age;
+alter table users add city varchar(20)not null;
+alter table users add contact varchar(30) not null;
+alter table users modify city varchar(30)not null;
+alter table users rename to students;
+select * from students; 
+insert into students values(null,'vaishnav',24,'male','gobi','9943886508');
+insert into students (name,age,gender,city,contact)values('kabilan',24,'male','sathy','9788491786');
+insert into students(name,age,gender,city,contact)values('kabilan',24,'male','sathy','9788491786'),('raj',24,'male','anthiyur','9798491786'),('murugan',28,'male','bhavani','988491786');
+delete from students where id=4;
+update students set city ='hosur',contact='9943886575' where id=5;
+truncate table students;
+insert into students(name,age,gender,city,contact)values('kabilan',24,'male','sathy','9788491786'),('mat',24,'male','sathy','9788491786'),('raaj',24,'male','sathy','9788491786'),('mahesh',24,'male','sathy','9788491786'),('kumar',24,'male','sathy','9788491786'),('santhosh',24,'male','sathy','9788491786'),('mukesh',24,'male','sathy','9788491786'),('saraa',24,'male','sathy','9788491786'),('jaya',24,'male','sathy','9788491786'),('mani',24,'male','sathy','9788491786'),('quinton',24,'male','sathy','9788491786');
+select name,city from students;
+select name,age,city from students where city = 'sathy';
+select name,age,city from students where city = 'sathy' and age ='24';
+select name,age,city from students where city = 'sathy' or city = 'gobi';
+select name,age,city from students where (city = 'sathy' or city = 'gobi') and age>=20 order by city; 
+select city from students;
+select distinct city from students;
+select distinct count(city) as total from students;
+select *from students limit 0,10;
+select *from students order by id desc limit 0,1;
+select max(age) from students;
+select min(age) from students;
+select round(avg(age)) from students;
+select gender,count(id) from students group by gender;
+select city,count(id) from students group by city;
+select name from students where name like 'ka%';
+select name from students where name like '%an';
+select name from students where name like '%ab%';
+select *from students where city in('sathy','gobi');
+select *from students where city not in ('salem','gobi');
+select *from students where age between 20 and 30;
+select *from students where age not between 20 and 30;
+create table attendance(
+aid int not null auto_increment,
+id int not null,
+adate date not null,
+astatus varchar(50)not null,
+primary key(aid)
+);
+show tables;
+truncate table attendance;
+insert into  attendance(id,adate,astatus) values 
+(1,'2018-11-01','p'),(1,'2018-11-02','a'),(1,'2018-11-03','a'),(1,'2018-11-04','p'),
+(2,'2018-11-01','p'),(2,'2018-11-02','a'),(2,'2018-11-03','p'),(2,'2018-11-04','p'),
+(3,'2018-11-01','a'),(3,'2018-11-02','p'),(3,'2018-11-03','a'),(3,'2018-11-04','p'),
+(4,'2018-11-01','a'),(4,'2018-11-02','a'),(4,'2018-11-03','p'),(4,'2018-11-04','p');
+select*from attendance;
+select *from attendance where id =1;
+select id,count(adate) as working, 
+count(if(astatus='p',1,null)) as present
+from attendance group by id;
+create table emp(
+ id integer unsigned not null auto_increment,
+ name varchar(45) not null,
+ design varchar(45)not null,
+ doj date not null,
+ primary key(id));
+ insert into emp(name,design,doj)values('vaishnav','ceo','2020-08-03'),('raja','seo','2020-08-04'),('manikam','cashier','2020-08-09'),('mahesh','ias','2020-08-10'),('kumar','ceo','2020-09-03');
+select*from emp;
+create table salary(
+sid int not null auto_increment,
+id int not null,
+sdate date not null,
+amt int not null,
+primary key(sid));
+insert into salary(id,sdate,amt)values(1,'2020-09-18',15000),(2,'2020-09-09',25000),(3,'2020-09-12',35000),(4,'2020-09-28',45000);
+select*from salary;
+truncate table emp;
+select*from emp;
+select emp.name,emp.design,salary.sdate,salary.amt from emp left join salary 
+on emp.id=salary.id;
+select students.name,attendance.adate,attendance.astatus from students inner join attendance on students.id = attendance.id;
+select name,city ,
+( case 
+when city = 'sathy' then 100
+when city = 'gobi' then 500
+else 0
+end
+) as amt from students;
+update students set city = 'bangalore' where city = 'sathy';
+
